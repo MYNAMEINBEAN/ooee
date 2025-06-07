@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 // Replace with your actual Hyperbeam API key
-const API_KEY = 'sk_test_Ycmy8XUTdhBfWCtwDqz4sRj5njjw8cYjggFDMcfsQW8';
+const API_KEY = 'sk_live_xDBYRvmgcJAvpm7f19eYj8yEDbkT7-Bl6DugjkQZqZU';
 
 // Hyperbeam API URL
 const BASE_URL = "https://api.hyperbeam.com/v1/sessions";
