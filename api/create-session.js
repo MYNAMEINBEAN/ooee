@@ -1,5 +1,3 @@
-// api/create-session.js
-
 const fetch = require('node-fetch');
 
 // Replace with your actual Hyperbeam API key
@@ -27,19 +25,30 @@ export default async function handler(req, res) {
         }),
       });
 
+      // Check if the response is ok (status 200-299)
+      if (!response.ok) {
+        // Log the response body for debugging purposes
+        const errorBody = await response.text();
+        console.error("Error Response Body:", errorBody);
+
+        return res.status(response.status).json({
+          error: `Request failed with status ${response.status}`,
+          details: errorBody
+        });
+      }
+
+      // Attempt to parse the JSON response
       const data = await response.json();
 
-      // If request is successful, return the session info
-      if (response.ok) {
-        res.status(200).json({
-          message: 'Session created successfully',
-          sessionId: data.id,
-          url: data.url,
-        });
-      } else {
-        res.status(500).json({ error: data.error || 'Error creating session' });
-      }
+      // If successful, return the session info
+      res.status(200).json({
+        message: 'Session created successfully',
+        sessionId: data.id,
+        url: data.url,
+      });
+
     } catch (error) {
+      console.error("Request failed:", error);
       res.status(500).json({ error: 'Request failed: ' + error.message });
     }
   } else {
