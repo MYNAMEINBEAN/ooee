@@ -1,0 +1,12 @@
+{
+  "name": "hyperbeam-demo",
+  "version": "1.0.0",
+  "description": "Hyperbeam API integration with Vercel",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}
