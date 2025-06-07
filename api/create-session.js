@@ -1,14 +1,28 @@
+// api/create-session.js
+
 const fetch = require('node-fetch');
 
 // Replace with your actual Hyperbeam API key
 const API_KEY = 'sk_live_xDBYRvmgcJAvpm7f19eYj8yEDbkT7-Bl6DugjkQZqZU';
 
-// Hyperbeam API URL
+// Hyperbeam API URL (Double-check this in the API documentation)
 const BASE_URL = "https://api.hyperbeam.com/v1/sessions";
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
+      const body = JSON.stringify({
+        name: 'My Hyperbeam Session',
+        options: {
+          video: true,
+          audio: true,
+        },
+      });
+
+      // Log the request details
+      console.log("Request URL:", BASE_URL);
+      console.log("Request Body:", body);
+
       // Making POST request to Hyperbeam API to create a new session
       const response = await fetch(BASE_URL, {
         method: 'POST',
@@ -16,13 +30,7 @@ export default async function handler(req, res) {
           'Authorization': `Bearer ${API_KEY}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: 'My Hyperbeam Session',
-          options: {
-            video: true,
-            audio: true,
-          },
-        }),
+        body: body,
       });
 
       // Check if the response is ok (status 200-299)
