@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyperbeam API Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .response {
+            margin-top: 20px;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hyperbeam API Integration</h1>
+        
+        <div id="response" class="response"></div>
+    </div>
+
+    <script>
+        // Automatically call the serverless function to create a session
+        window.onload = async () => {
+            try {
+                const response = await fetch('/api/create-session');
+                const data = await response.json();
+
+                const responseDiv = document.getElementById('response');
+
+                if (response.ok) {
+                    responseDiv.style.display = 'block';
+                    responseDiv.innerText = `Session created successfully!\nSession ID: ${data.sessionId}\nLink: ${data.url}`;
+                } else {
+                    responseDiv.style.display = 'block';
+                    responseDiv.innerText = `Error: ${data.error}`;
+                }
+            } catch (error) {
+                const responseDiv = document.getElementById('response');
+                responseDiv.style.display = 'block';
+                responseDiv.innerText = `Request failed: ${error.message}`;
+            }
+        };
+    </script>
+
+</body>
+</html>
